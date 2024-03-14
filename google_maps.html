@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Google Maps Example</title>
+  <style>
+    #map {
+      height: 100%;
+      width: 100%;
+    }
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+<script>
+  let map;
+  let markers = {};
+
+  function initMap() {
+    const positions = [
+      { lat: -25.344, lng: 131.031, title: "Marker 1" },
+      { lat: -15.354, lng: 131.041, title: "Marker 2" }
+    ];
+
+    map = new google.maps.Map(document.getElementById("map"), {
+      zoom: 4,
+      center: { lat: 0, lng: 0 },
+      mapId: "WebTie",
+    });
+
+    for(let i = 0; i < positions.length; i++) {
+      const marker = new google.maps.Marker({
+        map: map,
+        position: positions[i],
+        title: positions[i].title,
+      });
+    }
+  }
+</script>
+<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWPYjKiZC1-3fA73qd5KIGdHiqvuE1NKQ&callback=initMap"></script>
+</body>
+</html>
