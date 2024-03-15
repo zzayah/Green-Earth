@@ -1,0 +1,9 @@
+WebTie Dependencies
+
+Google Earth Engine
+
+pip install earthengine-api
+
+pip install earthengine-api --upgrade
+
+pip install pandas

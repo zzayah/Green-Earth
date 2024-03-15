@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>Simple Cylinders</name>
+    
+    <!-- Define a style for the cylinders -->
+    <Style id="cylinderStyle">
+      <LineStyle>
+        <color>ff0000ff</color> <!-- Blue color for lines -->
+        <width>1</width>
+      </LineStyle>
+      <PolyStyle>
+        <color>7f00ffff</color> <!-- Semi-transparent blue color for polygons -->
+      </PolyStyle>
+    </Style>
+    
+    <!-- Create cylinders as placemarks -->
+    <Placemark>
+      <name>Cylinder 1</name>
+      <styleUrl>#cylinderStyle</styleUrl> <!-- Apply the defined style -->
+      <Model>
+        <altitudeMode>relativeToGround</altitudeMode>
+        <Location>
+          <longitude>-105.272774533734</longitude>
+          <latitude>40.009993372683</latitude>
+          <altitude>0</altitude>
+        </Location>
+        <Orientation>
+          <heading>0</heading>
+          <tilt>0</tilt>
+          <roll>0</roll>
+        </Orientation>
+        <Scale>
+          <x>1</x>
+          <y>1</y>
+          <z>1</z>
+        </Scale>
+        <Link>
+          <href>path_to_cylinder_model_file</href> <!-- Path to the 3D model file for the cylinder -->
+        </Link>
+      </Model>
+    </Placemark>
+    
+    <!-- Add more placemarks for additional cylinders -->
+    <!-- Repeat the above Placemark structure for each cylinder -->
+    
+  </Document>
+</kml>
