@@ -1,0 +1,39 @@
+Mapbox:
+
+Pros:
+
+- User flexibility/friendliness:
+--- The UI is a world of difference compared to GEE. Everything seems to be intuitive and professional.
+
+- Dataset creation flexibility:
+--- There is a pipline required to display data with MapBox. First you have to convert a "dataset" to a "tile set". However, this render is EXTREMELY more efficient than GEE's.
+
+Cons:
+
+- Cost:
+--- Cost per use policy: Independent renders of our website will have to be paid by us. Though, for development purposes, this shouldn't be too much of an issue.
+
+- Unclear machine learning capability:
+--- It seems that there isn't a place for Machine Learning in the development of visualization.
+ 
+Google Earth Engine:
+
+Pros:
+
+- Extensive geographic datasets:
+-- Due to its use with the general public, interestingly colored datasets are available for render.
+
+- Python compatability:
+--- Though it exists, it doesn't seem like that much of an advantage. I've only used it to create .xml files which I have to render the even-less-flexible GEE Renderer online.
+
+Cons:
+
+- Unclear Machine Learning capability despite Python compatability: 
+--- Python seems to only be used to generate .xml. Meaning, machine learning would basically have no place, since datasets aren't "learned"
+
+- Questionable ability to make customized datasets: 
+--- Though it is indeed possible to generate datasets via python scrips which populates a .xml file, in my experience, the render is VERY slow.
+--- May laptop (given, 8th gen i7 integrated graphics card) lags when a simple grid is placed on the map
+
+- User interface:
+--- It gives me a headache trying to find certain features, documentation, or methods in doing things. Everything must be in the code, nothing is provided by the GEE UI.

@@ -1,0 +1,13 @@
+React:
+
+- Allows for streaming of .html before the webpage JS is completely fetched
+- Potential for full stack development (Next.js is the full-stack client)
+- EXTENSIVE examples online for certain types of JS components
+- Streamlined and clean-looking
+
+Node:
+
+- Event model / Event loop is a runtime contruct, not a library
+- Enters in and out of the event loop depending on when a call exists or not
+- General use is for server-side web apps and communication
+- Well-known and extensive documentation and examples exist
