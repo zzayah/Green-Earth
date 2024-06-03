@@ -3,10 +3,7 @@ const app = express()
 const fs = require('fs')
 const csv = require('csv-parser')
 
-app.get('/api', (req, res) => {
-    res.json({ 'users': ['Alice', 'Bob', 'Charlie']})  
-})
- 
+
 app.get('/api/features', (req, res) => {
     const csvData = [];
     fs.createReadStream('./us-state-capitals.csv')
