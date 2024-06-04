@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import mapboxgl from 'mapbox-gl';
+import globeMod from './globe.module.css'
 
 const Globe = () => {
     const [featureData, setFeatureData] = useState([]);
