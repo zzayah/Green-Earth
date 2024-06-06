@@ -2,6 +2,11 @@ import React, { useEffect, useState, useRef } from 'react';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import FontawesomeMarker from "mapbox-gl-fontawesome-markers";
+import Sandbox from '../sandbox-dial/sandbox'; // Import the Sandbox component
+import ReactDOM from 'react-dom';
+import ReactDOMServer from 'react-dom/server';
+
+
 
 const Globe = () => {
     const [featureData, setFeatureData] = useState([]);
@@ -29,13 +34,9 @@ const Globe = () => {
             );
 
             const popupContent = document.createElement('div');
-            const button = document.createElement('button');
-            button.innerHTML = 'Click Me';
-            button.addEventListener('click', () => {
-                // Handle button click action here
-                alert('Button Clicked!');
-            });
-            popupContent.appendChild(button);
+
+            // Render the Sandbox component into the popup content
+            ReactDOM.render(<Sandbox width={400} height={300} data={featureData} />, popupContent);
 
             const popup = new mapboxgl.Popup({
                 offset: 0,
@@ -44,9 +45,8 @@ const Globe = () => {
             })
                 .setDOMContent(popupContent)
                 .setLngLat([0, 0])
-                .setLngLat([0, 0])
                 .addTo(map.current);
-                
+
             map.current.addSource('points', {
                 'type': 'geojson',
                 'data': {
