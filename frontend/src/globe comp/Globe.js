@@ -1,13 +1,12 @@
 import React, { useEffect, useState, useRef } from 'react';
 import mapboxgl from 'mapbox-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
 import FontawesomeMarker from "mapbox-gl-fontawesome-markers";
-//import globeMod from './globe.module.css'
 
 const Globe = () => {
     const [featureData, setFeatureData] = useState([]);
     const mapContainer = useRef(null);
     const map = useRef(null);
-
 
     useEffect(() => {
         if (map.current) return;
@@ -15,17 +14,12 @@ const Globe = () => {
         map.current = new mapboxgl.Map({
             container: mapContainer.current,
             style: 'mapbox://styles/mapbox/dark-v11',
-            //center: [-98.5795, 39.8283],
             center: [0, 0],
-            //bearing: 0,
-            //pitch: 70,
-            //zoom: 4,
             projection: 'globe',
             preserveDrawingBuffer: false
         });
 
         map.current.on('load', () => {
-            // Load an image to use as an icon
             map.current.loadImage(
                 'https://image.shutterstock.com/image-vector/dotted-spiral-vortex-royaltyfree-images-600w-2227567913.jpg',
                 (error, image) => {
@@ -34,18 +28,25 @@ const Globe = () => {
                 }
             );
 
-            const popup = new mapboxgl.Popup({ offset: 0 }).setText("poopie stinky");
+            const popupContent = document.createElement('div');
+            const button = document.createElement('button');
+            button.innerHTML = 'Click Me';
+            button.addEventListener('click', () => {
+                // Handle button click action here
+                alert('Button Clicked!');
+            });
+            popupContent.appendChild(button);
 
-            const marker = new FontawesomeMarker({
-                icon: 'fa-solid fa-fire',
-                iconColor: 'steelblue',
-                color: '#fa7132',
-                scale: ""
+            const popup = new mapboxgl.Popup({
+                offset: 0,
+                closeButton: false,
+                closeOnClick: false
             })
-            .setLngLat([0, 0])
-            //.setPopup(popup)
-            .addTo(map.current);
-            
+                .setDOMContent(popupContent)
+                .setLngLat([0, 0])
+                .setLngLat([0, 0])
+                .addTo(map.current);
+                
             map.current.addSource('points', {
                 'type': 'geojson',
                 'data': {
@@ -53,7 +54,7 @@ const Globe = () => {
                     'features': featureData
                 }
             });
-            
+
             map.current.addLayer({
                 'id': 'points',
                 'type': 'symbol',
@@ -83,7 +84,7 @@ const Globe = () => {
         })
     }, [featureData]);
 
-    return <div ref={mapContainer} style={{ position: 'relative', top: 0, bottom: 0, width: '100%' }}></div>;
+    return <div ref={mapContainer} style={{ position: 'absolute', top: 0, bottom: 0, width: '100%' }}></div>;
 };
 
 export default Globe;

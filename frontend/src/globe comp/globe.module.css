@@ -1,3 +1,10 @@
-.mapboxgl-ctrl-logo {
-    display: none !important;
+.custom-popup {
+    background-color: rgba(0, 0, 0, 0); /* Transparent popup background */
+    color: #fff; /* Text color */
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+}
+
+.mapboxgl-marker svg {
+    fill: rgba(0, 0, 0, 0); /* Transparent marker */
 }
