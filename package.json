@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "d3": "^7.9.0",
+    "font-awesome": "^4.7.0",
+    "styled-components": "^6.1.11"
+  }
+}

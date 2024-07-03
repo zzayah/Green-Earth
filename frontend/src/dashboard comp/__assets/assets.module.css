@@ -1,0 +1,43 @@
+/* assets.module.css */
+.tradingviewWidgetContainer {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    height: 50vh;
+    /* Fixed height: half of the screen height */
+    max-width: 100%;
+    /* Ensure it does not exceed the screen width */
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    /* Optional: to ensure visibility against other content */
+    overflow: auto;
+    /* Enables scrolling if necessary */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    /* Optional: adds a subtle shadow for better separation */
+    border-top-left-radius: 10px;
+    /* Optional: rounded corner for aesthetics */
+    z-index: 1000;
+    /* Ensure the widget is above other content */
+}
+
+.tradingviewWidgetContainerWidget {
+    flex: 1;
+    /* Flex-grow to fill the container */
+    width: auto;
+    /* Adjust width based on content */
+}
+
+.tradingviewWidgetCopyright {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.blueText {
+    color: #2962FF;
+}
+
+.tradingview-widget-copyright,
+.tradingview-widget-container a[href^="https://www.tradingview.com/"] {
+    display: none !important;
+}

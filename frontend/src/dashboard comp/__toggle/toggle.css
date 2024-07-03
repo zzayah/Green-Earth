@@ -1,0 +1,60 @@
+.expandable-fab {
+    position: fixed;
+    top: 120px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.fab-container {
+    position: relative;
+}
+
+.fab-button {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background-color: #353535;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(196, 196, 196);
+    font-size: 24px;
+    cursor: pointer;
+    transition: transform 0.25s, opacity 0.25s;
+}
+
+.fab-button.visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.expanding-action-button {
+    position: absolute;
+    transition: transform 0.25s, opacity 0.25s;
+    opacity: 0;
+    transform: scale(0);
+}
+
+.expanding-action-button.open {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.action-button {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: #353535;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(196, 196, 196);
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: transform 0.25s, opacity 0.25s;
+}
+
+.action-button:focus {
+    outline: none;
+}
