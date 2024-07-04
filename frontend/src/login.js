@@ -8,7 +8,16 @@ export default function Login(){
         const formData = new FormData(form);
         const formJson = Object.fromEntries(formData.entries());
 
-        fetch("http://localhost:8080/login/auth", {
+        var logginIn = formJson["createUser"] != "on";
+
+        var serverUrl;
+
+        if(!logginIn){
+            serverUrl = "http://localhost:8080/login/create";
+        }else{
+            serverUrl = "http://localhost:8080/login/auth";
+        }
+        fetch(serverUrl, {
             headers: {
                 "Content-Type": "application/json",
             },
@@ -16,14 +25,18 @@ export default function Login(){
             body: JSON.stringify(formJson)
         })
         .then(response => {
+            console.log(response);
             if (response.ok) {
-            console.log("Login successful!");
+                console.log("Login successful!");
+                if(logginIn) alert("Logged in!");
             } else {
-            console.log("Login failed.");
+                console.log("Login failed.");
+                if(logginIn) alert("Failed.");
             }
         })
         .catch(error => {
             console.error("Error:", error);
+        
   });
         
 
@@ -41,6 +54,10 @@ export default function Login(){
                 Password: <input name="password" />
             </label>
             <hr/>
+            <label>
+                Create User: <input type="checkbox" name="createUser" defaultChecked={false}></input>
+            </label>
+            <hr />
             <button type="submit">Login</button>
             </form>
         </div>

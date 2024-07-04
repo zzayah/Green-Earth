@@ -1,11 +1,23 @@
+/*
+    This file will have sensitive information in it. (mongoDB key, ect.)
+    KEEP THIS SAFE.
+*/
+
+
 const express = require('express')
 const app = express()
 const fs = require('fs')
 const csv = require('csv-parser')
 const bodyParser = require('body-parser')
 const bcrypt = require('bcrypt');
+const { MongoClient, ServerApiVersion } = require('mongodb');
+
+
+const uri = "mongodb+srv://greenEarthAdmin:XsSUzY3Zx3SBy7H9@greenearth-dev.h9roaz7.mongodb.net/?appName=GreenEarth-Dev";
 
 const port = 8080;
+
+var users;
 
 // Dicates comp cost and level of sec
 // apparently arround 10-12 
@@ -17,6 +29,23 @@ bcrypt.genSalt(saltRounds, (err, salt) =>{
         // do smthing
     }
 });
+
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  }
+});
+
+try{
+    client.connect();
+    client.db("admin").command({ping: 1});
+    users = client.db("GreenEarth-Dev").collection("UserLogin");
+    console.log("Database connection initilized.")
+} finally {
+
+}
 
 app.use(bodyParser.json());
 
@@ -30,7 +59,7 @@ app.use(setCorsHead);
 
 
 
-function handleLogHashing(password){
+function handleLogHashing(username, password){
     bcrypt
     .genSalt(saltRounds)
     .then(salt => {
@@ -39,22 +68,25 @@ function handleLogHashing(password){
     })
     .then(hash => {
         console.log('Hash: ', hash)
-        comp(password, hash);
-        comp("swaggermssiash", hash);
-        return true;
+        var user = { 
+            userName : username,
+            hash : hash
+        };
+        users.insertOne(user, errorHandle);
     })
     .catch(err => console.error(err.message))
 }
 
 
-function comp(password, hash){
-    bcrypt
-      .compare(password, hash)
-      .then(res => {
-        console.log(res);
-        return res;
-      })
-      .catch(err => console.error(err.message))      
+function comp(username, password){
+
+    
+}
+
+function getUser(username){
+    const query = {userName : username};
+    const data = users.findOne(query);
+    return data;
 }
 
 app.get('/api/features', (req, res) => {
@@ -82,14 +114,59 @@ app.get('/api/features', (req, res) => {
 })
 
 app.post('/login/auth', (req, res) => {
+    console.log("Login Request recived.");
     var username = req.body.username;
     var password = req.body.password;
 
-    var hash = "$2b$10$Erwiz36Ywx5S7mlS3xFQke8yskERYt92lW9cwL2A8Hha89rNlAa8i"
-    //var logIn = handleLogHashing(password);
-    var logIn = comp(password, hash);
+    var data;
 
-    return logIn;
+    // Find hash to compare to
+    getUser(username).then((result) => {
+        data = result;
+        console.log(data);
+
+        if(!data) return false;
+
+        var hash = data["hash"];
+
+        if(hash){
+            bcrypt
+            .compare(password, hash)
+            .then(val => {
+                console.log(val);
+                if(val === true){
+                    console.log("hii!")
+                    res.sendStatus(200);
+                }else{
+                    console.log("nah way bro");
+                    res.sendStatus(401);
+                }
+                
+                return;
+            })
+            .catch(err => console.error(err.message))      
+        }else{
+            console.log("Found data but no hash...");
+            res.sendStatus(401);
+            return;
+        }
+    });
+
+    
+})
+
+function errorHandle(err, res){
+    if (err) throw err;
+};
+
+app.post('/login/create', (req, res) => {
+    console.log("Account creation request recieved.");
+    var username = req.body.username;
+    var password = req.body.password;
+
+    handleLogHashing(username, password);
+
+    return false;
 })
 
 app.listen(port, () => {
