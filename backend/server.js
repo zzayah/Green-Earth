@@ -85,8 +85,9 @@ app.post('/login/auth', (req, res) => {
     var username = req.body.username;
     var password = req.body.password;
 
-    var logIn = handleLogHashing(password);
-    
+    var hash = "$2b$10$Erwiz36Ywx5S7mlS3xFQke8yskERYt92lW9cwL2A8Hha89rNlAa8i"
+    //var logIn = handleLogHashing(password);
+    var logIn = comp(password, hash);
 
     return logIn;
 })
