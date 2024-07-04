@@ -26,12 +26,12 @@ export default function Login(){
         })
         .then(response => {
             console.log(response);
-            if (response.ok) {
-                console.log("Login successful!");
+            if (response.status == 200) {
                 if(logginIn) alert("Logged in!");
+                else alert("Account created!");
             } else {
-                console.log("Login failed.");
                 if(logginIn) alert("Failed.");
+                else alert("Failed to create account.");
             }
         })
         .catch(error => {

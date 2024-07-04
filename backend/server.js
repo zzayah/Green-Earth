@@ -58,8 +58,8 @@ function setCorsHead(req, res, next){
 app.use(setCorsHead);
 
 
-
-function handleLogHashing(username, password){
+// including res here is a shitty hack, someone with more js knowhow prob knows the right way to do it
+function handleLogHashing(username, password, res){
     bcrypt
     .genSalt(saltRounds)
     .then(salt => {
@@ -73,8 +73,11 @@ function handleLogHashing(username, password){
             hash : hash
         };
         users.insertOne(user, errorHandle);
+        
+        res.sendStatus(200);
     })
-    .catch(err => console.error(err.message))
+    .catch(err => {console.error(err.message);})
+    res.sendStatus(401);
 }
 
 
@@ -135,7 +138,7 @@ app.post('/login/auth', (req, res) => {
             .then(val => {
                 console.log(val);
                 if(val === true){
-                    console.log("hii!")
+                    console.log("yay!")
                     res.sendStatus(200);
                 }else{
                     console.log("nah way bro");
@@ -164,9 +167,24 @@ app.post('/login/create', (req, res) => {
     var username = req.body.username;
     var password = req.body.password;
 
-    handleLogHashing(username, password);
+    bcrypt
+    .genSalt(saltRounds)
+    .then(salt => {
+        console.log('Salt: ', salt)
+        return bcrypt.hash(password, salt)
+    })
+    .then(hash => {
+        console.log('Hash: ', hash)
+        var user = { 
+            userName : username,
+            hash : hash
+        };
+        users.insertOne(user, errorHandle);
+        res.sendStatus(200);
+        return;
+    })
+    .catch(err => {console.error(err.message); res.sendStatus(401); return;})
 
-    return false;
 })
 
 app.listen(port, () => {
