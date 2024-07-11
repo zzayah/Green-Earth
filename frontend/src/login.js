@@ -1,4 +1,10 @@
 import { Form } from "react-router-dom";
+import './login.css'
+
+import { FaUser } from "react-icons/fa";
+import { FaLock } from "react-icons/fa";
+
+
 
 export default function Login(){
 
@@ -43,23 +49,32 @@ export default function Login(){
     }
 
     return (
-        <div>
-            <h1>LOGIN</h1>
-            <form method="post" onSubmit={handleLogin}>
-            <label>
-                UserName: <input name="username" />
-            </label>
-            <hr/>
-            <label>
-                Password: <input name="password" />
-            </label>
-            <hr/>
-            <label>
-                Create User: <input type="checkbox" name="createUser" defaultChecked={false}></input>
-            </label>
-            <hr />
-            <button type="submit">Login</button>
-            </form>
+        <div class="main">
+            {/* <div class="header">
+                <h1>Green Earth</h1>
+            </div> */}
+            <div class="content">
+                <div class="wrapper">
+                    <h1>LOGIN</h1>
+                    <form method="post" onSubmit={handleLogin}>
+                        {/* Replace Labels with a div soon */}
+                        <label><br></br></label>
+                    <label>
+                        <input name="username" placeholder='Username' /> <FaUser class="icon"/>
+                    </label>
+                    <label><br></br></label>
+                    <label>
+                        <input name="password" placeholder='Password'/> <FaLock class="icon"/>
+                    </label>
+                    <label><br></br></label>
+                    <label>
+                        Create User: <input type="checkbox" name="createUser" defaultChecked={false}></input>
+                    </label>
+                    <button type="submit">Login</button>
+                    </form>
+                </div>
+            </div>
+
         </div>
     )
 };
