@@ -1,4 +1,4 @@
-import { Form } from "react-router-dom";
+import { Form, redirect } from "react-router-dom";
 import './login.css'
 
 import { FaUser } from "react-icons/fa";
@@ -7,6 +7,10 @@ import { FaLock } from "react-icons/fa";
 
 
 export default function Login(){
+
+    function switchText(){
+        
+    }
 
     function handleLogin(e){
         e.preventDefault();
@@ -35,6 +39,7 @@ export default function Login(){
             if (response.status == 200) {
                 if(logginIn) alert("Logged in!");
                 else alert("Account created!");
+                redirect("/");
             } else {
                 if(logginIn) alert("Failed.");
                 else alert("Failed to create account.");
@@ -42,6 +47,7 @@ export default function Login(){
         })
         .catch(error => {
             console.error("Error:", error);
+
         
   });
         
@@ -68,7 +74,7 @@ export default function Login(){
                     </label>
                     <label><br></br></label>
                     <label>
-                        Create User: <input type="checkbox" name="createUser" defaultChecked={false}></input>
+                        Create User: <input type="checkbox" name="createUser" defaultChecked={false} onChange={switchText}></input>
                     </label>
                     <button type="submit">Login</button>
                     </form>
