@@ -3,12 +3,24 @@ import Globe from '../globe comp/Globe';
 import Contacts from '../dashboard comp/__contacts/contacts';
 import TradingViewWidget from '../dashboard comp/__assets/assets';
 import ExpandableFab, { ActionButton } from '../dashboard comp/__toggle/toggle'; // Import the new component
+import { useSearchParams } from 'react-router-dom';
 
 
 
 function App() {
+
+
   const [menuVisible, setMenuVisible] = useState(false);
   const [tradingViewVisible, setTradingViewVisible] = useState(false);
+
+  const [searchParam,] = useSearchParams();
+
+  console.log(searchParam.get('addr'));
+
+
+
+  var address = searchParam.get('addr');
+
 
   const toggleMenu = () => {
     setMenuVisible(!menuVisible);
@@ -23,7 +35,7 @@ function App() {
       
       {tradingViewVisible && <TradingViewWidget />}
       {menuVisible && <Contacts showMenu={menuVisible} toggleMenu={toggleMenu} />}
-      <Globe />
+      <Globe addr={address} />
       
       <ExpandableFab distance={100}>
         <ActionButton onClick={toggleTradingView} icon={<i className="fa-area-chart"></i>} />

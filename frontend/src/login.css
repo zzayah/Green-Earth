@@ -7,7 +7,7 @@
     box-sizing: border-box;
 }
 
-body {
+.main {
     font-family: 'Poppins', sans-serif;
     -webkit-font-smoothing: antialiased;
     display: flex;
